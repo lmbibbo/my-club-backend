@@ -2,13 +2,20 @@ package com.lmbibbo.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Player {
+    @Id
     private Integer playerId;
     private Integer memberNumber;
     private String name;
     private IdentityCard dni;
     private Address address;
     private LocalDateTime created;
+    @Indexed(unique = true)
     private String email;
     public Player(Integer playerId, Integer memberNumber, String name, IdentityCard dni, Address address,
             LocalDateTime created, String email) {

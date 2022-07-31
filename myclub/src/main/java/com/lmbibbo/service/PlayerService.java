@@ -1,4 +1,4 @@
-package com.lmbibbo.Service;
+package com.lmbibbo.service;
 
 import java.util.List;
 

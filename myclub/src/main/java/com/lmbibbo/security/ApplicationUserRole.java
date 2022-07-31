@@ -9,13 +9,12 @@ import java.util.stream.Collectors;
 import static com.lmbibbo.security.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
-    STUDENT(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
-    ADMINTRAINEE(Sets.newHashSet(COURSE_READ, STUDENT_READ));
+    PLAYER(Sets.newHashSet(PLAYER_READ,PLAYER_WRITE)),
+    ADMIN(Sets.newHashSet(DATA_READ, DATA_WRITE, PLAYER_READ, PLAYER_WRITE));
 
     private final Set<ApplicationUserPermission> permissions;
 
-    ApplicationUserRole(Set<ApplicationUserPermission> permissions) {
+    private ApplicationUserRole(Set<ApplicationUserPermission> permissions) {
         this.permissions = permissions;
     }
 

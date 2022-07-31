@@ -2,12 +2,13 @@ package com.lmbibbo.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lmbibbo.Service.PlayerService;
 import com.lmbibbo.model.Player;
+import com.lmbibbo.service.PlayerService;
 
 @RestController
 @RequestMapping("api/v1/players")
@@ -20,7 +21,9 @@ public class PlayerController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<Player> fechAllPlayers() {
+        System.out.println("getAllPlayers");
         return playerService.getAllPlayers();
     }
     

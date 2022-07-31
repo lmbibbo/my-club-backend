@@ -1,10 +1,10 @@
 package com.lmbibbo.security;
 
 public enum ApplicationUserPermission {
-    STUDENT_READ("student:read"),
-    STUDENT_WRITE("student:write"),
-    COURSE_READ("course:read"),
-    COURSE_WRITE("course:write");
+    PLAYER_READ("player:read"),
+    PLAYER_WRITE("player:write"),
+    DATA_READ("data:read"),
+    DATA_WRITE("data:write");
 
     private final String permission;
 
