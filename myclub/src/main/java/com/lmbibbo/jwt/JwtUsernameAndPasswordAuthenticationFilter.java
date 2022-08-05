@@ -36,8 +36,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                                 HttpServletResponse response) throws AuthenticationException {
 
         try {
-            UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+
+            String dataLogin="{\"username\":\"linda\",\"password\":\"password\"}";
+
+            /* UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
+ */
+            UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+                    .readValue(dataLogin, UsernameAndPasswordAuthenticationRequest.class);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
