@@ -1,6 +1,7 @@
 package com.lmbibbo.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -9,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Player {
     @Id
-    private Integer playerId;
+    private UUID playerId;
     private Integer memberNumber;
     private String name;
     private IdentityCard dni;
@@ -17,7 +18,7 @@ public class Player {
     private LocalDateTime created;
     @Indexed(unique = true)
     private String email;
-    public Player(Integer playerId, Integer memberNumber, String name, IdentityCard dni, Address address,
+    public Player(UUID playerId, Integer memberNumber, String name, IdentityCard dni, Address address,
             LocalDateTime created, String email) {
         this.playerId = playerId;
         this.memberNumber = memberNumber;
@@ -36,8 +37,8 @@ public class Player {
     public LocalDateTime getCreated() {
         return created;
     }
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreated(LocalDateTime localDate) {
+        this.created = localDate;
     }
     public Address getAddress() {
         return address;
@@ -45,10 +46,10 @@ public class Player {
     public void setAddress(Address address) {
         this.address = address;
     }
-    public Integer getPlayerId() {
+    public UUID getPlayerId() {
         return playerId;
     }
-    public void setPlayerId(Integer playerId) {
+    public void setPlayerId(UUID playerId) {
         this.playerId = playerId;
     }
     public Integer getMemberNumber() {
@@ -69,7 +70,5 @@ public class Player {
     public void setDni(IdentityCard dni) {
         this.dni = dni;
     }
-
-
-    
+   
 }

@@ -1,6 +1,7 @@
 package com.lmbibbo.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,21 +37,22 @@ public class PlayerManagerController {
     @PreAuthorize("hasAuthority('data:write')")
     public void registerNewPlayer(@RequestBody Player player) {
         System.out.println("registerNewPlayer");
-        System.out.println(player);
+        playerService.registerNewPlayer(player);
     }
 
     @DeleteMapping(path = "{playerId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deletePlayer(@PathVariable("playerId") Integer playerId) {
+    public void deletePlayer(@PathVariable("playerId") UUID playerId) {
         System.out.println("deletePlayer");
-        System.out.println(playerId);
+        playerService.deletePlayer(playerId);
     }
 
     @PutMapping(path = "{playerId}")
     @PreAuthorize("hasAuthority('player:write')")
-    public void updatePlayer(@PathVariable("playerId") Integer playerId, @RequestBody Player player) {
+    public void updatePlayer(@PathVariable("playerId") UUID playerId, @RequestBody Player player) {
         System.out.println("updatePlayer");
-        System.out.println(String.format("%s %s", playerId, player));
+        playerService.updatePlayer(playerId, player);    
+
     }
 
     
