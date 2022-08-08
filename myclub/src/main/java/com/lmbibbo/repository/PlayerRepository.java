@@ -8,5 +8,6 @@ import com.lmbibbo.model.Player;
 
 public interface PlayerRepository extends MongoRepository<Player, Integer> {
     Optional<Player> findStudentByEmail(String email);
- 
+
+    
 }

@@ -42,18 +42,17 @@ public class PlayerManagerController {
 
     @DeleteMapping(path = "{playerId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deletePlayer(@PathVariable("playerId") UUID playerId) {
+    public void deletePlayer(@PathVariable("playerId") Integer playerId) {
         System.out.println("deletePlayer");
         playerService.deletePlayer(playerId);
     }
 
     @PutMapping(path = "{playerId}")
     @PreAuthorize("hasAuthority('player:write')")
-    public void updatePlayer(@PathVariable("playerId") UUID playerId, @RequestBody Player player) {
+    public void updatePlayer(@PathVariable("playerId") Integer playerId, @RequestBody Player player) {
         System.out.println("updatePlayer");
         playerService.updatePlayer(playerId, player);    
 
     }
-
-    
+   
 }

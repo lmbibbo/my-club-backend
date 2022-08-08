@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Player {
     @Id
-    private UUID playerId;
+    private Integer playerId;
     private Integer memberNumber;
     private String name;
     private IdentityCard dni;
@@ -18,7 +18,7 @@ public class Player {
     private LocalDateTime created;
     @Indexed(unique = true)
     private String email;
-    public Player(UUID playerId, Integer memberNumber, String name, IdentityCard dni, Address address,
+    public Player(Integer playerId, Integer memberNumber, String name, IdentityCard dni, Address address,
             LocalDateTime created, String email) {
         this.playerId = playerId;
         this.memberNumber = memberNumber;
@@ -46,10 +46,10 @@ public class Player {
     public void setAddress(Address address) {
         this.address = address;
     }
-    public UUID getPlayerId() {
+    public Integer getPlayerId() {
         return playerId;
     }
-    public void setPlayerId(UUID playerId) {
+    public void setPlayerId(Integer playerId) {
         this.playerId = playerId;
     }
     public Integer getMemberNumber() {

@@ -1,10 +1,8 @@
 package com.lmbibbo.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,11 @@ public class PlayerService {
 
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
+        Integer maxId=0;
+        for (Player p : this.getAllPlayers()) {
+            if (maxId< p.getPlayerId()) maxId=p.getPlayerId();    
+        }
+        IntegerSecuenceGenerator.setBaseId(maxId);
     }
     
     public List<Player> getAllPlayers() {
@@ -25,16 +28,25 @@ public class PlayerService {
     }
 
     public void registerNewPlayer(Player player) {
-        player.setPlayerId(UUID.randomUUID());
+        player.setPlayerId(IntegerSecuenceGenerator.generateId());
         player.setCreated(LocalDateTime.now());
         playerRepository.insert(player);
     }
 
-    public void deletePlayer(UUID playerId) {
+    public void deletePlayer(Integer playerId) {
         Optional<Player> elPlayer=playerRepository.findById(playerId);
         if (elPlayer.isPresent()) playerRepository.delete(elPlayer.get());
     }
 
-    public void updatePlayer(UUID playerId, Player player) {
+    public void updatePlayer(Integer playerId, Player player) {
+        Optional<Player> elPlayer=playerRepository.findById(playerId);
+        if (elPlayer.isPresent()) {
+            elPlayer.get().setAddress(player.getAddress());
+            elPlayer.get().setDni(player.getDni());
+            elPlayer.get().setEmail(player.getEmail());
+            elPlayer.get().setMemberNumber(player.getMemberNumber());
+            elPlayer.get().setName(player.getName());
+            playerRepository.save(elPlayer.get());
+        } 
     }
 }
