@@ -24,7 +24,7 @@ public class PlayerController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    List<Player> fechAllPlayers() {
+    List<Player> getAllPlayers() {
         System.out.println("getAllPlayers");
         return playerService.getAllPlayers();
     }
