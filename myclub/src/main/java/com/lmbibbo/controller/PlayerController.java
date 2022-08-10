@@ -13,7 +13,6 @@ import com.lmbibbo.service.PlayerService;
 
 @RestController
 @RequestMapping("api/v1/players")
-@CrossOrigin("*")
 public class PlayerController {
 
     private final PlayerService playerService;

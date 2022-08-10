@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
@@ -37,13 +38,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         try {
 
-            String dataLogin="{\"username\":\"linda\",\"password\":\"password\"}";
+  //          String dataLogin="{\"username\":\"linda\",\"password\":\"password\"}";
 
-            /* UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
-                    .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
- */
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
-                    .readValue(dataLogin, UsernameAndPasswordAuthenticationRequest.class);
+                    .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
+ 
+  //          UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+  //                  .readValue(dataLogin, UsernameAndPasswordAuthenticationRequest.class);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),

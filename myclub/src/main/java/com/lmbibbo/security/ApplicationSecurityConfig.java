@@ -1,9 +1,7 @@
 package com.lmbibbo.security;
 
-import com.lmbibbo.auth.ApplicationUserService;
-import com.lmbibbo.jwt.JwtConfig;
-import com.lmbibbo.jwt.JwtTokenVerifier;
-import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.crypto.SecretKey;
+import com.lmbibbo.auth.ApplicationUserService;
+import com.lmbibbo.jwt.JwtConfig;
+import com.lmbibbo.jwt.JwtTokenVerifier;
+import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 import static com.lmbibbo.security.ApplicationUserRole.*;
 
@@ -44,6 +45,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .cors(cors -> cors.disable())
             .csrf().disable()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,6 +61,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
+ /*   @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("/*"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+*/
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
