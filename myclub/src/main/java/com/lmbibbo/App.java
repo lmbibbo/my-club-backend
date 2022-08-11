@@ -17,7 +17,7 @@ public class App {
         return new WebMvcConfigurer() {
             public void addCorsMappings(CorsRegistry reg) {
                 reg.addMapping("/*").allowedOrigins("*");
-                
+                reg.addMapping("/*").allowedHeaders("*");
             }
         };
         
