@@ -15,11 +15,14 @@ public class App {
     @Bean
     public WebMvcConfigurer configure() {
         return new WebMvcConfigurer() {
+            @Override
             public void addCorsMappings(CorsRegistry reg) {
-                reg.addMapping("/*").allowedOrigins("*");
-                reg.addMapping("/*").allowedHeaders("*");
+                reg.addMapping("/**").allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true);
             }
         };
         
-    }
+    }  
 }

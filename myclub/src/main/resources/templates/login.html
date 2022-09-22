@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="content-type" content="application/json">
     <title>Amigoscode login</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -15,9 +16,26 @@
         }
     </style>
 </head>
+<script type="application/javascript">
+    function nose() {
+        var myForm  = document.getElementById("form-login");
+        var data = {};
+        for(var formElement of myForm.childNodes.values()){
+            if(formElement.name!= "undefined"){
+                var key = formElement.name
+                var value = formElement.value
+                data[key] = value
+            }
+        }
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", myForm.action, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
+    }
+</script>
 <body>
 <div class="container">
-    <form class="form-signin" method="post" action="/login">
+    <form id="form-login" class="form-signin" method="post" enctype="application/json">
         <h2 class="form-signin-heading">Please login to Amigoscode</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
@@ -33,7 +51,7 @@
             Remember me?
             <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
         </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button id="login" class="btn btn-lg btn-primary btn-block" onclick="nose()">Login</button>
     </form>
 </div>
 </body>
