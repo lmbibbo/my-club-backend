@@ -16,23 +16,6 @@
         }
     </style>
 </head>
-<script type="application/javascript">
-    function nose() {
-        var myForm  = document.getElementById("form-login");
-        var data = {};
-        for(var formElement of myForm.childNodes.values()){
-            if(formElement.name!= "undefined"){
-                var key = formElement.name
-                var value = formElement.value
-                data[key] = value
-            }
-        }
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", myForm.action, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(data));
-    }
-</script>
 <body>
 <div class="container">
     <form id="form-login" class="form-signin" method="post" enctype="application/json">
@@ -51,7 +34,7 @@
             Remember me?
             <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
         </p>
-        <button id="login" class="btn btn-lg btn-primary btn-block" onclick="nose()">Login</button>
+        <button class="btn btn-lg btn-primary btn-block">Login</button>
     </form>
 </div>
 </body>

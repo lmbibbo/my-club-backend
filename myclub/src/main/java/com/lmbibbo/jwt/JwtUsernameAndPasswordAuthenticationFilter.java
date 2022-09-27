@@ -41,6 +41,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         this.authenticationManager = authenticationManager;
         this.jwtConfig = jwtConfig;
         this.secretKey = secretKey;
+        this.setFilterProcessesUrl("/api/auth/login");
     }
 
     @Override
@@ -49,10 +50,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         try {
             String ct=request.getContentType();
-            UsernameAndPasswordAuthenticationRequest authenticationRequest = new UsernameAndPasswordAuthenticationRequest();
             System.out.println("Content = " + ct );
+            UsernameAndPasswordAuthenticationRequest authenticationRequest = new UsernameAndPasswordAuthenticationRequest();
 
-            if (ct.equalsIgnoreCase("application/x-www-form-urlencoded")) {
+
+            if (ct!=null && ct.equalsIgnoreCase("application/x-www-form-urlencoded")) {
                 StringBuilder stringBuilder = new StringBuilder();
                 InputStream inputStream = request.getInputStream();
                 if (inputStream != null) {
