@@ -18,7 +18,7 @@ import com.lmbibbo.service.PlayerService;
 @RestController
 @RequestMapping("management/api/v1/players")
 public class PlayerManagerController {
-
+/*
     private final PlayerService playerService;
 
     public PlayerManagerController(PlayerService playerService) {
@@ -53,5 +53,5 @@ public class PlayerManagerController {
         playerService.updatePlayer(playerId, player);    
 
     }
-   
+  */
 }

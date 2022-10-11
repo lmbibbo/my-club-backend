@@ -1,11 +1,13 @@
 package com.lmbibbo.security;
 
+import com.lmbibbo.auth.ApplicationUserService;
+import com.lmbibbo.jwt.JwtConfig;
+import com.lmbibbo.jwt.JwtTokenVerifier;
+import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import javax.crypto.SecretKey;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.aggregation.BooleanOperators.And;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,11 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.lmbibbo.auth.ApplicationUserService;
-import com.lmbibbo.jwt.JwtConfig;
-import com.lmbibbo.jwt.JwtTokenVerifier;
-import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +43,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.disable())
             .csrf().disable()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -64,34 +60,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
-/*    public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/*")
-            .allowedOrigins("*")
-            .allowedMethods("*")
-            .allowedHeaders("*")
-            .allowCredentials(true);
-    }
-
-            .formLogin()
-                .loginPage("/auth/login.html")
-                .loginProcessingUrl("")
-                //.defaultSuccessUrl("defaultSuccessUrl").failureUrl("authenticationFailureUrl")
-            .and()
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedHeaders(Arrays.asList("Origin,Accept","Authorization"));
-        configuration.setAllowedOrigins(Arrays.asList("/*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-        configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        configuration.addAllowedOrigin("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-*/ 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -99,12 +67,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(applicationUserService);
         return provider;
     }
-
-  /*  @Bean
-    public JwtUsernameAndPasswordAuthenticationFilter geJwtUsernameAndPasswordAuthenticationFilter() throws Exception{
-        final JwtUsernameAndPasswordAuthenticationFilter filter=new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey);
-        filter.setFilterProcessesUrl("/api/auth/login");
-        return filter;
-    }
- */
 }

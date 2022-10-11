@@ -91,7 +91,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
