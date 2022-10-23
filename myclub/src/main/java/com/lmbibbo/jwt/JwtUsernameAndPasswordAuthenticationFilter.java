@@ -53,7 +53,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             System.out.println("Content = " + ct );
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new UsernameAndPasswordAuthenticationRequest();
 
-
             if (ct!=null && ct.equalsIgnoreCase("application/x-www-form-urlencoded")) {
                 StringBuilder stringBuilder = new StringBuilder();
                 InputStream inputStream = request.getInputStream();
@@ -106,6 +105,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey)
                 .compact();
 
+        String body = jwtConfig.getTokenPrefix() + token;
+        response.getWriter().write(body);
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }
