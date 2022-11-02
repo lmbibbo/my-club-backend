@@ -67,21 +67,24 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
+/*
+import static com.lmbibbo.security.ApplicationUserRole.*;
+import com.lmbibbo.auth.ApplicationUser;
 
-/*        applicationUserService.saveApplicationUser(
+        applicationUserService.saveApplicationUser(
                 new ApplicationUser(
-                        Long.valueOf(1),
-                        "Luis Ma",
+                        Long.valueOf(14),
+                        "Luis Mariano",
                         "linda",
-                        pass.encode("password"),
+                        passwordEncoder.encode("password"),
                         ADMIN.getGrantedAuthorities(),
-                        true,sho
                         true,
                         true,
                         true,
-                        "LuisMa@gmail.com"));*/
+                        true,
+                        "Luisdb@gmail.com"));*/
+
+
         return provider;
     }
-
-
 }

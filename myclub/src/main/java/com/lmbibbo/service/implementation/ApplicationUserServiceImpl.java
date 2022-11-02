@@ -3,7 +3,8 @@ package com.lmbibbo.service.implementation;
 import com.lmbibbo.auth.ApplicationUser;
 import com.lmbibbo.repository.ApplicationUserRepository;
 import com.lmbibbo.service.ApplicationUserService;
-import lombok.RequiredArgsConstructor;
+import com.lmbibbo.service.SequenceGeneratorService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,12 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@AllArgsConstructor
 @Transactional
 @Slf4j
 public class ApplicationUserServiceImpl implements ApplicationUserService, UserDetailsService {
 
     private final ApplicationUserRepository applicationUserRepository;
+    private final SequenceGeneratorService sequenceGeneratorService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,6 +39,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
     @Override
     public ApplicationUser saveApplicationUser(ApplicationUser applicationUser) {
         log.info("Saving a new user {} to the Database", applicationUser.getUsername());
+        applicationUser.setId(sequenceGeneratorService.generateSequence(ApplicationUser.SEQUENCE_NAME));
         return applicationUserRepository.save(applicationUser);
     }
 

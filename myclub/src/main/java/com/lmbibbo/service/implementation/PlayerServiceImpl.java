@@ -2,32 +2,32 @@ package com.lmbibbo.service.implementation;
 
 import com.lmbibbo.model.Player;
 import com.lmbibbo.repository.PlayerRepository;
-import com.lmbibbo.service.SecuenceGenerator;
 import com.lmbibbo.service.PlayerService;
+import com.lmbibbo.service.SequenceGeneratorService;
+import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
+
 import static java.lang.Boolean.TRUE;
 @Service
 @Transactional
+@AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
+    private final SequenceGeneratorService sequenceGeneratorService;
     private static final Logger log = LoggerFactory.getLogger(PlayerServiceImpl.class);
-
-    public PlayerServiceImpl(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
 
     @Override
     public Player create(Player player) {
         log.info("Creating Player {}", player.getName());
-        player.setPlayerId(SecuenceGenerator.generateId());
+        player.setPlayerId(sequenceGeneratorService.generateSequence(Player.SEQUENCE_NAME));
         player.setCreated(LocalDateTime.now());
         return playerRepository.save(player);
     }
