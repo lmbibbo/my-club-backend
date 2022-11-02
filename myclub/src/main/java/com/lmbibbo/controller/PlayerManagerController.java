@@ -1,24 +1,16 @@
 package com.lmbibbo.controller;
 
-import java.util.List;
-
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.lmbibbo.model.Player;
 import com.lmbibbo.service.PlayerService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("management/api/v1/players")
 public class PlayerManagerController {
-/*
+
     private final PlayerService playerService;
 
     public PlayerManagerController(PlayerService playerService) {
@@ -27,31 +19,31 @@ public class PlayerManagerController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Player> getAllPlayers() {
+    public Collection<Player> getAllPlayers() {
         System.out.println("getAllPlayers");
-        return playerService.getAllPlayers();
+        return playerService.list(10);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('data:write')")
     public void registerNewPlayer(@RequestBody Player player) {
         System.out.println("registerNewPlayer");
-        playerService.registerNewPlayer(player);
+        playerService.create(player);
     }
 
     @DeleteMapping(path = "{playerId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deletePlayer(@PathVariable("playerId") Integer playerId) {
+    public void deletePlayer(@PathVariable("playerId") Long playerId) {
         System.out.println("deletePlayer");
-        playerService.deletePlayer(playerId);
+        playerService.delete(playerId);
     }
 
     @PutMapping(path = "{playerId}")
     @PreAuthorize("hasAuthority('player:write')")
-    public void updatePlayer(@PathVariable("playerId") Integer playerId, @RequestBody Player player) {
+    public void updatePlayer(@RequestBody Player player) {
         System.out.println("updatePlayer");
-        playerService.updatePlayer(playerId, player);    
+        playerService.update(player);
 
     }
-  */
+
 }

@@ -2,7 +2,7 @@ package com.lmbibbo.service.implementation;
 
 import com.lmbibbo.model.Player;
 import com.lmbibbo.repository.PlayerRepository;
-import com.lmbibbo.service.IntegerSecuenceGenerator;
+import com.lmbibbo.service.SecuenceGenerator;
 import com.lmbibbo.service.PlayerService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player create(Player player) {
         log.info("Creating Player {}", player.getName());
-        player.setPlayerId(IntegerSecuenceGenerator.generateId());
+        player.setPlayerId(SecuenceGenerator.generateId());
         player.setCreated(LocalDateTime.now());
         return playerRepository.save(player);
     }
@@ -39,7 +39,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Optional<Player> get(Integer id) {
+    public Optional<Player> get(Long id) {
         log.info("Fetching Player Id {}", id);
         return playerRepository.findById(id);
     }
@@ -51,7 +51,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Boolean delete(Integer id) {
+    public Boolean delete(Long id) {
         log.info("Deleting Player Id {}", id);
         playerRepository.deleteById(id);
         return TRUE;

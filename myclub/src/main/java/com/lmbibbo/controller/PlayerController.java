@@ -38,7 +38,7 @@ public class PlayerController {
 
     @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Response> getPlayer(@PathVariable("id") Integer id) {
+    public ResponseEntity<Response> getPlayer(@PathVariable("id") Long id) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(LocalDateTime.now())
@@ -52,7 +52,7 @@ public class PlayerController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Response> deletePlayer(@PathVariable("id") Integer id) {
+    public ResponseEntity<Response> deletePlayer(@PathVariable("id") Long id) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(LocalDateTime.now())

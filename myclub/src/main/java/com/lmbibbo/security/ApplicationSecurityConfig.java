@@ -1,10 +1,9 @@
 package com.lmbibbo.security;
 
-import com.lmbibbo.auth.ApplicationUserService;
 import com.lmbibbo.jwt.JwtConfig;
 import com.lmbibbo.jwt.JwtTokenVerifier;
 import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-import javax.crypto.SecretKey;
+import com.lmbibbo.service.implementation.ApplicationUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,19 +17,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.crypto.SecretKey;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final ApplicationUserService applicationUserService;
+    private final ApplicationUserServiceImpl applicationUserService;
     private final SecretKey secretKey;
     private final JwtConfig jwtConfig;
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService,
+                                     ApplicationUserServiceImpl applicationUserService,
                                      SecretKey secretKey,
                                      JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder;
@@ -66,6 +67,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
+
+/*        applicationUserService.saveApplicationUser(
+                new ApplicationUser(
+                        Long.valueOf(1),
+                        "Luis Ma",
+                        "linda",
+                        pass.encode("password"),
+                        ADMIN.getGrantedAuthorities(),
+                        true,sho
+                        true,
+                        true,
+                        true,
+                        "LuisMa@gmail.com"));*/
         return provider;
     }
+
+
 }
