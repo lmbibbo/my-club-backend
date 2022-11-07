@@ -55,4 +55,24 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
         return applicationUserRepository.findAll();
     }
 
+    public String signUpUser(ApplicationUser applicationUser) {
+
+        boolean userExists = applicationUserRepository
+                .findByUsername(applicationUser.getUsername())
+                .isPresent() || applicationUserRepository
+                .findByEmail(applicationUser.getEmail())
+                .isPresent();
+
+        if (userExists) {
+            throw new IllegalStateException(String.format("UserName: %s or Email: %s already exists",
+                    applicationUser.getUsername(),applicationUser.getEmail()));
+        }
+        log.info("Saving-Up a new user {} to the Database", applicationUser.getUsername());
+        applicationUser.setId(sequenceGeneratorService.generateSequence(ApplicationUser.SEQUENCE_NAME));
+        applicationUserRepository.save(applicationUser);
+
+        // Todo: Send confirmation Token
+
+        return "it works";
+    }
 }

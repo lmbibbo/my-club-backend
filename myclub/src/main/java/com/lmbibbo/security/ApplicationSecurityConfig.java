@@ -51,7 +51,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
             .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
-            .authorizeRequests().antMatchers("/login","/api/auth/login", "/css/*", "/js/*").permitAll()
+            .authorizeRequests().antMatchers("/api/auth/*", "/css/*", "/js/*").permitAll()
             .and()
             .authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
             .anyRequest().authenticated();
@@ -68,7 +68,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
 /*
-import static com.lmbibbo.security.ApplicationUserRole.*;
+import static com.lmbibbo.auth.ApplicationUserRole.*;
 import com.lmbibbo.auth.ApplicationUser;
 
         applicationUserService.saveApplicationUser(

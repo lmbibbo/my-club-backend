@@ -1,6 +1,7 @@
-package com.lmbibbo.security;
+package com.lmbibbo.auth;
 
 import com.google.common.collect.Sets;
+import com.lmbibbo.security.ApplicationUserPermission;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
