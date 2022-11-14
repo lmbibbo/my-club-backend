@@ -2,7 +2,7 @@ package com.lmbibbo.controller;
 
 import com.lmbibbo.model.Player;
 import com.lmbibbo.model.Response;
-import com.lmbibbo.service.implementation.PlayerServiceImpl;
+import com.lmbibbo.service.impl.PlayerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

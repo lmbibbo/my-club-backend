@@ -1,6 +1,5 @@
-package com.lmbibbo.service;
+package com.lmbibbo.auth;
 
-import com.lmbibbo.auth.ApplicationUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.lmbibbo.service.implementation;
+package com.lmbibbo.auth.impl;
 
 import com.lmbibbo.auth.ApplicationUser;
-import com.lmbibbo.repository.ApplicationUserRepository;
-import com.lmbibbo.service.ApplicationUserService;
-import com.lmbibbo.service.SequenceGeneratorService;
+import com.lmbibbo.auth.ApplicationUserRepository;
+import com.lmbibbo.auth.ApplicationUserService;
+import com.lmbibbo.repository.SequenceGeneratorService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,17 +57,20 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 
     public String signUpUser(ApplicationUser applicationUser) {
 
-        boolean userExists = applicationUserRepository
-                .findByUsername(applicationUser.getUsername())
-                .isPresent() || applicationUserRepository
-                .findByEmail(applicationUser.getEmail())
-                .isPresent();
+        if (applicationUserRepository.findByUsername(applicationUser.getUsername()).isPresent()){
+            throw new IllegalStateException(
+                    String.format("UserName: %s already exists",applicationUser.getUsername()));
+        };
 
-        if (userExists) {
-            throw new IllegalStateException(String.format("UserName: %s or Email: %s already exists",
-                    applicationUser.getUsername(),applicationUser.getEmail()));
-        }
-        log.info("Saving-Up a new user {} to the Database", applicationUser.getUsername());
+        if (applicationUserRepository.findByEmail(applicationUser.getEmail()).isPresent()){
+
+            throw new IllegalStateException(
+                    String.format("Email: %s already exists",applicationUser.getEmail()));
+        };
+
+        log.info("Saving-Up a new user {} to the Database", applicationUser.
+                getUsername());
+
         applicationUser.setId(sequenceGeneratorService.generateSequence(ApplicationUser.SEQUENCE_NAME));
         applicationUserRepository.save(applicationUser);
 

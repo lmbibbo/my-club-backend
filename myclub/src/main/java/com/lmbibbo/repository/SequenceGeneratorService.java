@@ -1,6 +1,5 @@
-package com.lmbibbo.service;
+package com.lmbibbo.repository;
 
-import com.lmbibbo.repository.DatabaseSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;

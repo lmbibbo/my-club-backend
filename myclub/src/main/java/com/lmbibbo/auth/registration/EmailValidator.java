@@ -1,4 +1,4 @@
-package com.lmbibbo.registration;
+package com.lmbibbo.auth.registration;
 
 import org.springframework.stereotype.Service;
 import java.util.function.Predicate;

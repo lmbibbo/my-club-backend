@@ -1,8 +1,8 @@
-package com.lmbibbo.registration;
+package com.lmbibbo.auth.registration;
 
 import com.lmbibbo.auth.ApplicationUser;
+import com.lmbibbo.auth.impl.ApplicationUserServiceImpl;
 import com.lmbibbo.security.PasswordConfig;
-import com.lmbibbo.service.implementation.ApplicationUserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +12,24 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ApplicationUserServiceImpl applicationUserService;
     private final PasswordConfig passwordConfig;
+
     public String register(RegistrationRequest request) {
-        String email = request.getEmail();
-        Boolean isValidEmail = emailValidator.test(email);
+        boolean isValidEmail = emailValidator.test(request.getEmail());
         if (!isValidEmail) {
-            throw new RuntimeException(String.format("email: %s not Valid", email));
+            throw new IllegalStateException(String.format("Email: %s is invalid", request.getEmail()));
         }
+
         return applicationUserService.signUpUser(
                 new ApplicationUser(
                         request.getName(),
                         request.getUsername(),
                         passwordConfig.passwordEncoder().encode(request.getPassword()),
-                        email
+                        request.getEmail()
                 )
         );
+    }
+
+    public String confirmToken(String token) {
+        return "";
     }
 }

@@ -1,4 +1,4 @@
-package com.lmbibbo.registration;
+package com.lmbibbo.auth.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

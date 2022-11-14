@@ -3,7 +3,7 @@ package com.lmbibbo.security;
 import com.lmbibbo.jwt.JwtConfig;
 import com.lmbibbo.jwt.JwtTokenVerifier;
 import com.lmbibbo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-import com.lmbibbo.service.implementation.ApplicationUserServiceImpl;
+import com.lmbibbo.auth.impl.ApplicationUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +51,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
             .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
-            .authorizeRequests().antMatchers("/api/auth/*", "/css/*", "/js/*").permitAll()
+            .authorizeRequests().antMatchers("/api/auth/registration", "/css/*", "/js/*").permitAll()
             .and()
             .authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
             .anyRequest().authenticated();

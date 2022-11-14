@@ -1,9 +1,9 @@
-package com.lmbibbo.service.implementation;
+package com.lmbibbo.service.impl;
 
 import com.lmbibbo.model.Player;
 import com.lmbibbo.repository.PlayerRepository;
 import com.lmbibbo.service.PlayerService;
-import com.lmbibbo.service.SequenceGeneratorService;
+import com.lmbibbo.repository.SequenceGeneratorService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,5 @@
-package com.lmbibbo.repository;
+package com.lmbibbo.auth;
 
-import com.lmbibbo.auth.ApplicationUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
