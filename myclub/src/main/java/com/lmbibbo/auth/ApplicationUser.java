@@ -1,5 +1,6 @@
 package com.lmbibbo.auth;
 
+import com.lmbibbo.auth.registration.ConfirmationToken;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,6 @@ public class ApplicationUser implements UserDetails {
     private Long id;
     private String name;
     @Indexed(unique = true)
-//    @NotEmpty(message = "Username cannot be empty o null")
     private String username;
     private String password;
     private Set<? extends GrantedAuthority> grantedAuthorities;
@@ -34,8 +34,8 @@ public class ApplicationUser implements UserDetails {
     private boolean isCredentialsNonExpired = false;
     private boolean isEnabled = false;
     @Indexed(unique = true)
-//    @NotEmpty(message = "Email cannot be empty o null")
     private String email;
+    private ConfirmationToken confirmationToken;
 
     public ApplicationUser(String name, String username, String password, String email) {
         this.name = name;

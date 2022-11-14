@@ -8,4 +8,8 @@ public interface ApplicationUserRepository extends MongoRepository<ApplicationUs
     Optional<ApplicationUser> findByEmail(String email);
 
     Optional<ApplicationUser> findByUsername(String username);
+
+    Optional<ApplicationUser> findByConfirmationToken_Token(String token);
+
+
 }

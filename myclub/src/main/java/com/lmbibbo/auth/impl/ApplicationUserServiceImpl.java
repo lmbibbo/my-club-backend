@@ -3,6 +3,7 @@ package com.lmbibbo.auth.impl;
 import com.lmbibbo.auth.ApplicationUser;
 import com.lmbibbo.auth.ApplicationUserRepository;
 import com.lmbibbo.auth.ApplicationUserService;
+import com.lmbibbo.auth.registration.ConfirmationToken;
 import com.lmbibbo.repository.SequenceGeneratorService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 //@RequiredArgsConstructor
@@ -38,6 +41,11 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 
     @Override
     public ApplicationUser saveApplicationUser(ApplicationUser applicationUser) {
+        log.info("Saving a user {} to the Database", applicationUser.getUsername());
+        return applicationUserRepository.save(applicationUser);
+    }
+    @Override
+    public ApplicationUser createApplicationUser(ApplicationUser applicationUser) {
         log.info("Saving a new user {} to the Database", applicationUser.getUsername());
         applicationUser.setId(sequenceGeneratorService.generateSequence(ApplicationUser.SEQUENCE_NAME));
         return applicationUserRepository.save(applicationUser);
@@ -71,11 +79,19 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
         log.info("Saving-Up a new user {} to the Database", applicationUser.
                 getUsername());
 
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                null
+        );
+        applicationUser.setConfirmationToken(confToken);
         applicationUser.setId(sequenceGeneratorService.generateSequence(ApplicationUser.SEQUENCE_NAME));
         applicationUserRepository.save(applicationUser);
 
-        // Todo: Send confirmation Token
+        // Todo Send Email
 
-        return "it works";
+        return token;
     }
 }
